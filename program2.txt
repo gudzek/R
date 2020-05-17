@@ -1,0 +1,48 @@
+library(plotrix)
+library(ggplot2)
+library(plot3D)
+
+
+dane<-read.table("C:\\Users\\damia\\Desktop\\StudentsPerformance.csv",header=TRUE,sep=",")
+
+head(dane)
+
+#############################################################################################
+#1. 
+count <- table(dane$gender)
+barplot(count,
+        main = "Liczba uczestników testu",
+        ylab = "Liczebność",
+        col = c("blue","red"))
+#############################################################################################
+#2.
+percentage <- table(dane$race.ethnicity)/length(dane$race.ethnicity)
+pie(percentage,
+    main = "Grupa etniczna")
+#############################################################################################
+#3. 
+ggplot( dane,
+       aes(x=math.score, y=reading.score, color=parental.level.of.education))+geom_point(size=1)
+#############################################################################################
+#4. 
+ggplot(dane, 
+       aes(x=parental.level.of.education, y=math.score)) + geom_boxplot()
+#############################################################################################
+#5.
+ggplot(dane, aes(x=math.score)) + geom_histogram()
+#############################################################################################
+#6.
+plot(dane[,c("math.score","reading.score","writing.score")],pch=20, cex=1.5, col="blue")
+#############################################################################################
+#7.
+ggplot(dane,aes(x=reading.score)) + geom_density()
+#############################################################################################
+#8.
+ggplot(dane,aes(x=reading.score,y=writing.score)) + geom_density_2d()
+#############################################################################################
+#9.
+z<- table(dane$math.score,dane$writing.score)
+hist3D(z=z,border = "black")
+#############################################################################################
+#10.
+image2D(z=z,border = "black")
